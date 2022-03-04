@@ -5,6 +5,7 @@
         <tr>
             <td>#</td>
             <td>Beschreibung</td>
+            <td>Person</td>
             <td>&nbsp;</td>
         </tr>
     </thead>
@@ -14,8 +15,8 @@
         <tr th:each="todo, todoStat: ${todos}">
         <!-- todos der arraylist werden gezählt -->
             <td th:text="${todoStat.count}"></td>
-            <!-- string im array werden ausgegeben -->
             <td th:text="${todo.getDesc()}"></td>
+            <td th:text="${todo.getPerson()}"></td>
             <td>
                 <!-- btn danger ist rot bei klick -->
                 <!-- http://www.w3.org/2000/svg  direkter verweis auf controller, der  -->

@@ -2,7 +2,7 @@ package com.example.ToDo;
 
 import java.util.ArrayList;
 
-import com.example.model.Todo;
+import com.example.ToDo.models.Todo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +22,8 @@ public class TodosController {
     }
 
     private void createDemoData(){
-        getTodos().add(new Todo("Müll rausbringen", "Heinrich"));
-        getTodos().add(new Todo("Küche aufräumen", "Fritz Willi"));
-        getTodos().add(new Todo("Zimmer aufräumen", "Onkel Ernie"));
+        getTodos().add(new Todo("Müll rausbringen!", "Amelie"));
+        getTodos().add(new Todo("Küche aufräumen", "Jordan"));
     }
 
 
@@ -41,9 +40,7 @@ public class TodosController {
     // default value, wird direkt als int gespeichert
     @RequestMapping("/deltodo")
     public String deltodo(@RequestParam(name="id", required = true, defaultValue = "null") int id, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
-        
         getTodos().remove(id);
-
         return "redirect:/todos";
     }
 
@@ -52,34 +49,29 @@ public class TodosController {
 
     @RequestMapping("/changetodo")
     public String changetodo(@RequestParam(name="id", required = true, defaultValue = "null") int id, @RequestParam(name="activePage", required = false, defaultValue = "changetodo") String activePage, Model model){
-        
         // Todo zur Bearbeitung laden
         model.addAttribute("todo", getTodos().get(id));
         model.addAttribute("todoid", id);
         model.addAttribute("activePage", "todoUpdate");
         return "index.html";
     }
-
+    
     @RequestMapping("/updatetodo")
-    public String updatetodo(@RequestParam(name="todoId", required = true, defaultValue = "null") int todoId, @RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
+    public String updatetodo(@RequestParam(name="todoId", required = true, defaultValue = "null") int todoId, @RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc,@RequestParam(name="todoPerson", required = true, defaultValue = "null") String todoPerson, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
         // getTodos().set(Integer.parseInt(todoId), todoDesc);
         getTodos().get(todoId).setDesc(todoDesc);
-           // mapping zu todos, es spart einen umweg, man geht direkt zur todoseite, es muss nicht alles nochmal mit einer tabelle gemacht werden
+        getTodos().get(todoId).setPerson(todoPerson);
+        // mapping zu todos, es spart einen umweg, man geht direkt zur todoseite, es muss nicht alles nochmal mit einer tabelle gemacht werden
+
         return "redirect:/todos";
     }
-
+    
     @RequestMapping("/addtodo")
-    public String addtodo(@RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
-        
-        getTodos().add(new Todo(todoDesc));
-        
-        // model.addAttribute("todos", getTodos());
-        // model.addAttribute("activePage", "todos");
+    public String addtodo(@RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc,@RequestParam(name="todoPerson", required = true, defaultValue = "null") String todoPerson, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
+        getTodos().add(new Todo(todoDesc, todoPerson));
         return "redirect:/todos";
     }
-
-
-
+    
     public void setTodos(ArrayList<Todo> todos) {
         this.todos = todos;
     }
