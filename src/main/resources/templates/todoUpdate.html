@@ -2,7 +2,7 @@
 <hr>
 <form th:action="@{/updatetodo(id=${todoid})}">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" th:value="${todo}" th:name="todoDesc" >
+        <input type="text" class="form-control" th:value="${todo.getDesc()}" th:name="todoDesc" >
         <input type="number" class="form-control" th:value="${todoid}" th:name="todoId" style="display: none;" >
         <div class="input-group-append">
             <button class="btn btn-secondary" type="submit" id="button-addon2">Aktualisieren</button>

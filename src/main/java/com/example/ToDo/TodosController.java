@@ -2,24 +2,31 @@ package com.example.ToDo;
 
 import java.util.ArrayList;
 
+import com.example.model.Todo;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TodosController {
     
-    ArrayList<String> todos;
+    ArrayList<Todo> todos;
 
     public TodosController(){
-        setTodos(new ArrayList<String>());
+        setTodos(new ArrayList<Todo>());
 
-        getTodos().add("Müll rausbringen");
-        getTodos().add("Küche aufräumen");
+        createDemoData();
     }
+
+    private void createDemoData(){
+        getTodos().add(new Todo("Müll rausbringen", "Heinrich"));
+        getTodos().add(new Todo("Küche aufräumen", "Fritz Willi"));
+        getTodos().add(new Todo("Zimmer aufräumen", "Onkel Ernie"));
+    }
+
 
     @GetMapping("/todos")
     public String todos(@RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
@@ -28,15 +35,20 @@ public class TodosController {
         return "index.html";
     }
 
+
+
+    // required true ist nur, dass eine id als parameter mit übergeben werden muss
+    // default value, wird direkt als int gespeichert
     @RequestMapping("/deltodo")
     public String deltodo(@RequestParam(name="id", required = true, defaultValue = "null") int id, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
         
         getTodos().remove(id);
 
-        model.addAttribute("todos", getTodos());
-        model.addAttribute("activePage", "todos");
-        return "index.html";
+        return "redirect:/todos";
     }
+
+
+
 
     @RequestMapping("/changetodo")
     public String changetodo(@RequestParam(name="id", required = true, defaultValue = "null") int id, @RequestParam(name="activePage", required = false, defaultValue = "changetodo") String activePage, Model model){
@@ -49,26 +61,30 @@ public class TodosController {
     }
 
     @RequestMapping("/updatetodo")
-    public String updatetodo(@RequestParam(name="todoId", required = true, defaultValue = "null") String todoId, @RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
-        getTodos().set(Integer.parseInt(todoId), todoDesc);
+    public String updatetodo(@RequestParam(name="todoId", required = true, defaultValue = "null") int todoId, @RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
+        // getTodos().set(Integer.parseInt(todoId), todoDesc);
+        getTodos().get(todoId).setDesc(todoDesc);
+           // mapping zu todos, es spart einen umweg, man geht direkt zur todoseite, es muss nicht alles nochmal mit einer tabelle gemacht werden
         return "redirect:/todos";
     }
 
     @RequestMapping("/addtodo")
     public String addtodo(@RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
         
-        getTodos().add(todoDesc);
+        getTodos().add(new Todo(todoDesc));
         
-        model.addAttribute("todos", getTodos());
-        model.addAttribute("activePage", "todos");
-        return "index.html";
+        // model.addAttribute("todos", getTodos());
+        // model.addAttribute("activePage", "todos");
+        return "redirect:/todos";
     }
 
-    public void setTodos(ArrayList<String> todos) {
+
+
+    public void setTodos(ArrayList<Todo> todos) {
         this.todos = todos;
     }
 
-    public ArrayList<String> getTodos() {
+    public ArrayList<Todo> getTodos() {
         return todos;
     }
 }
