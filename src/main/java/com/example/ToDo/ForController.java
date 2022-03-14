@@ -64,7 +64,5 @@ public class ForController {
 
     public void setCards(ArrayList<String[]> cards) {
         this.cards = cards;
-    }
-
-    
+    }   
 }

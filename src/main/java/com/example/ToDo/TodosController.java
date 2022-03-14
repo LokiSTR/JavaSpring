@@ -68,8 +68,13 @@ public class TodosController {
     
     @RequestMapping("/addtodo")
     public String addtodo(@RequestParam(name="todoDesc", required = true, defaultValue = "null") String todoDesc,@RequestParam(name="todoPerson", required = true, defaultValue = "null") String todoPerson, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
+       
         getTodos().add(new Todo(todoDesc, todoPerson));
         return "redirect:/todos";
+        // return "redirect:/modal";
+        // if(todoDesc == null){
+        //     return "redirect:/todo_Allert";
+        // }
     }
     
     public void setTodos(ArrayList<Todo> todos) {
