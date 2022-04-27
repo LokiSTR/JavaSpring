@@ -17,10 +17,11 @@ public class DBController {
     public DBController(){
         // ACHTUNG! Hier den Port entsprechend XAMPP austauschen, z.B. jdbc:mysql://localhost:3306/javadb
         // javadb ist der Name der Datenbank, kann auch bei euch anders sein!
-        setConnectionUrl("jdbc:mysql://localhost:8889/javadb");
+        setConnectionUrl("jdbc:mysql://localhost:3306/javadb");
         setPasswort("root");
         setUsername("root");
     }
+    
 
     // Holt alle ToDos aus der Datenbank und gibt diese als ArrayList zurück!
     public ArrayList<Todo> getAllToDos(){

@@ -23,10 +23,18 @@ public class TodosController {
         loadToDosFromDB();
     }
 
+    /*
+    Beziehungsstruktur 
+    on delete cascade
+    datenbank angeben 
+    dann tabelle 
+    dann spalte (Primary key)
+
     private void createDemoData(){
         //getTodos().add(new Todo(0, "Müll rausbringen!", "Amelie"));
         //getTodos().add(new Todo(1, "Küche aufräumen", "Jordan"));
     }
+    */
 
     // Lädt aktuelle ToDos aus der Datenbank und wirft bei Bedarf eine SQL-Exception
     private void loadToDosFromDB(){
