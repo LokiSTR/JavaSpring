@@ -25,15 +25,6 @@ public class CardsController {
         card2[1] = "Die Maus mag Käse, aber keinen Cheddar.";
         getCards().add(card2);
 
-        String[] card3 = new String[2];
-        card3[0] = "Ein Haus mit einer Maus";
-        card3[1] = "Die Maus mag Käse, aber keinen Cheddar.";
-        getCards().add(card3);
-
-        String[] card4 = new String[2];
-        card4[0] = "Ein Haus mit einer Maus";
-        card4[1] = "Die Maus mag Käse, aber keinen Cheddar.";
-        getCards().add(card4);
     }
 
     

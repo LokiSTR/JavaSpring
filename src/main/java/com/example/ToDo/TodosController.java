@@ -70,6 +70,7 @@ public class TodosController {
         return personen;
     }
 
+
     @GetMapping("/todos")
     public String todos(@RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
         loadToDosFromDB();
@@ -81,12 +82,19 @@ public class TodosController {
         return "index.html";
     }
 
+
+
+    // required true ist nur, dass eine id als parameter mit übergeben werden muss
+    // default value, wird direkt als int gespeichert
     @RequestMapping("/deltodo")
     public String deltodo(@RequestParam(name="id", required = true, defaultValue = "null") int id, @RequestParam(name="activePage", required = false, defaultValue = "todos") String activePage, Model model){
         DBController db = new DBController();
         db.delToDo(id);
         return "redirect:/todos";
     }
+
+
+
 
     @RequestMapping("/changetodo")
     public String changetodo(@RequestParam(name="id", required = true, defaultValue = "null") int id, @RequestParam(name="activePage", required = false, defaultValue = "changetodo") String activePage, Model model){
@@ -114,6 +122,10 @@ public class TodosController {
         DBController db = new DBController();
         db.addNewToDo(todoPersonId, todoDesc);
         return "redirect:/todos";
+        // return "redirect:/modal";
+        // if(todoDesc == null){
+        //     return "redirect:/todo_Allert";
+        // }
     }
     
     public void setTodos(ArrayList<Todo> todos) {
