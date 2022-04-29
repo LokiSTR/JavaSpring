@@ -42,6 +42,8 @@ public class TodosController {
         setTodos(db.getAllToDos());
     }
 
+
+    
     // Personen erstellen und zurückgeben
     private ArrayList<String> getPersonenNoDB(){
         ArrayList<String> personen = new ArrayList<>();

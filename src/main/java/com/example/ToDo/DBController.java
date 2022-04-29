@@ -57,8 +57,8 @@ public class DBController {
     public void addNewToDo(int person, String description) {
         try{
             String sqlSelectAllPersons = "INSERT INTO todos(id_person,description) VALUES('"+person+"','"+description+"');";
-            Connection conn = DriverManager.getConnection(getConnectionUrl(), getUsername(), getPasswort());
-            PreparedStatement ps = conn.prepareStatement(sqlSelectAllPersons); 
+            Connection con = DriverManager.getConnection(getConnectionUrl(), getUsername(), getPasswort());
+            PreparedStatement ps = con.prepareStatement(sqlSelectAllPersons); 
             // als Return von executeUpdate kommt 0 (FAIL) oder 1 (OK!) zurück
             int rs = ps.executeUpdate();
             System.out.println(rs);
